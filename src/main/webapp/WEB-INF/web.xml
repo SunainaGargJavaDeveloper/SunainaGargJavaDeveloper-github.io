@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" version="2.5">
+  
+  <!-- Spring MVC Configuration  -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>/WEB-INF/spring/root-context.xml</param-value>
+  </context-param>
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <servlet>
+    <servlet-name>appServlet</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>/WEB-INF/spring/appServlet/servlet-context.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  
+  <!-- Jersey Configuration JAX-RS  -->
+	<servlet>
+   		 <servlet-name>JerseyWebApplication</servlet-name>
+   		 <servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+			<init-param>
+    		  <param-name>javax.ws.rs.Application</param-name>
+    		  <param-value>edu.npu.ShopperShop.resthandler.RestApplicationConfig</param-value>
+    		</init-param>
+   		 <load-on-startup>1</load-on-startup>
+	</servlet>
+	
+  <!-- Spring MVC Dispatcher Servlet will handle URLs in this space  -->
+  <servlet-mapping>
+    <servlet-name>appServlet</servlet-name>
+    <url-pattern>/</url-pattern>
+  </servlet-mapping>
+  
+  <!-- Jersey Dispatcher Servlet will handle URLs in this space  -->
+  <!-- Jersey Mappings -->
+	<servlet-mapping>
+    	<servlet-name>JerseyWebApplication</servlet-name>
+    	<url-pattern>/webservices/*</url-pattern>
+  	</servlet-mapping>
+</web-app>
